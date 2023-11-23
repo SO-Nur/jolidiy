@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <div class="container my-4">
+        <div class="p-5 text-center bg-primary-subtle rounded-3">
+            <h1 class="text-body-emphasis">Jumbotron with icon</h1>
+            <p class="col-lg-8 mx-auto fs-5 text-muted">
+                This is a custom jumbotron featuring an SVG image at the top, some longer text that wraps early thanks to a responsive <code>.col-*</code> class, and a customized call to action.
+            </p>
+            <div class="d-inline-flex gap-2 mb-5">
+                <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">
+                    Call to action
+                </button>
+            </div>
+        </div>
+    </div>
+    <main class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h3 class="pb-4 mb-4 fst-italic border-bottom">Articles récents</h3>
+                <div id="article-list">
+                    {% include 'article/list.html.twig' with { articles } %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
