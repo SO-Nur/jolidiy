@@ -4,3 +4,9 @@ vich_uploader:
     metadata:
         type: attribute
 
+    #mappings:
+        #media:
+            #uri_prefix: /uploads/media
+            #upload_destination: '%media_directory%'
+            #namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
