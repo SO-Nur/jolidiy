@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Media;
 use App\Form\MediaType;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -24,6 +25,7 @@ class MediaCrudController extends AbstractCrudController
 
         yield TextField::new('name');
         yield TextField::new('altText');
+        yield TextField::new('videoLink');
 
         $imageField = ImageField::new('file', 'Média')
             ->setBasePath($uploadsDir)
@@ -35,6 +37,16 @@ class MediaCrudController extends AbstractCrudController
         }
 
         yield $imageField;
+    }
+
+    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        $media = $entityInstance;
+
+        $media->setName($media->getFile());
+
+        parent::persistEntity($entityManager, $entityInstance);
+
     }
 
 }

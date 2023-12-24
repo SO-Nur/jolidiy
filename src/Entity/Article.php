@@ -44,11 +44,22 @@ class Article implements TimestampedInterface
     #[ORM\OneToMany(mappedBy: 'article', targetEntity: Media::class)]
     private Collection $media;
 
+    #[ORM\ManyToOne]
+    private ?Media $featuredImage = null;
+
+    #[ORM\OneToMany(mappedBy: 'articleVideo', targetEntity: Media::class)]
+    private Collection $featuredVideo;
+
+    #[ORM\OneToMany(mappedBy: 'articleContentImage', targetEntity: Media::class)]
+    private Collection $contentImage;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->media = new ArrayCollection();
+        $this->featuredVideo = new ArrayCollection();
+        $this->contentImage = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -213,5 +224,82 @@ class Article implements TimestampedInterface
         }
 
         return $this;
+    }
+
+    public function getFeaturedImage(): ?Media
+    {
+        return $this->featuredImage;
+    }
+
+    public function setFeaturedImage(?Media $featuredImage): static
+    {
+        $this->featuredImage = $featuredImage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Media>
+     */
+    public function getFeaturedVideo(): Collection
+    {
+        return $this->featuredVideo;
+    }
+
+    public function addFeaturedVideo(Media $featuredVideo): static
+    {
+        if (!$this->featuredVideo->contains($featuredVideo)) {
+            $this->featuredVideo->add($featuredVideo);
+            $featuredVideo->setArticleVideo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFeaturedVideo(Media $featuredVideo): static
+    {
+        if ($this->featuredVideo->removeElement($featuredVideo)) {
+            // set the owning side to null (unless already changed)
+            if ($featuredVideo->getArticleVideo() === $this) {
+                $featuredVideo->setArticleVideo(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Media>
+     */
+    public function getContentImage(): Collection
+    {
+        return $this->contentImage;
+    }
+
+    public function addContentImage(Media $contentImage): static
+    {
+        if (!$this->contentImage->contains($contentImage)) {
+            $this->contentImage->add($contentImage);
+            $contentImage->setArticleContentImage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContentImage(Media $contentImage): static
+    {
+        if ($this->contentImage->removeElement($contentImage)) {
+            // set the owning side to null (unless already changed)
+            if ($contentImage->getArticleContentImage() === $this) {
+                $contentImage->setArticleContentImage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->title;
     }
 }

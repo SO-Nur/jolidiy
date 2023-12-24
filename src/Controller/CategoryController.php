@@ -17,7 +17,7 @@ class CategoryController extends AbstractController
         }
 
         return $this->render('category/index.html.twig', [
-            'entity' => $category,
+            'entity' => $category
         ]);
     }
 }

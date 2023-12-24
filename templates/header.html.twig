@@ -1,21 +1,12 @@
 <div class="lh-1 py-3">
     <div class="container">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-            <div class="col-4 text-start">
-                <a class="blog-header-logo text-decoration-none" href="{{ path('app_home') }}">| Joli DIY |</a>
+        <div class="row flex-nowrap justify-content-between align-items-center py-3 border-bottom">
+            <div class="col-6 text-start">
+                <a class="blog-header-logo text-decoration-none p-2" href="{{ path('app_home') }}">Joli <span class="blog-header-logo text-secondary">DIY</span></a>
             </div>
 
-            <div class="col-4 navbar-nav-scroll-">
-                <nav class="nav nav-underline justify-content-evenly">
-                    <a class="nav-item nav-link" href="{{ path('app_home') }}">Accueil</a>
-                    <a class="nav-item nav-link href="{{ path('app_home') }}">Catégories</a>
-                    <a class="nav-item nav-link" href="{{ path('app_home') }}">Tutoriels</a>
-                    <a class="nav-item nav-link" href="{{ path('app_home') }}">À propos</a>
-                </nav>
-            </div>
-
-            <div class="col-4 d-flex justify-content-end">
-                {% if app.user%}
+            <div class="col-6 d-flex justify-content-end">
+                {% if is_granted('ROLE_AUTHOR')%}
                     <a class="btn btn-sm btn-outline-primary px-3 mx-2 rounded" href="{{ path('admin') }}">Tableau de bord</a>
                 {% endif %}
                 {% if app.user is null %}
@@ -25,6 +16,18 @@
                     <a class="btn btn-sm btn-secondary px-3 rounded" href="{{ path('app_logout') }}">Déconnnexion</a>
                 {% endif %}
             </div>
+        </div>
+
+        <div class="navbar-nav-scroll py-1">
+            <nav class="nav nav-underline justify-content-evenly">
+                <a class="nav-item nav-link text-secondary" href="{{ path('app_home') }}">Accueil</a>
+                <a class="nav-item nav-link href="{{ path('app_home') }}">Couture</a>
+                <a class="nav-item nav-link href="{{ path('app_home') }}">Crochet</a>
+                <a class="nav-item nav-link href="{{ path('app_home') }}">Déco</a>
+                <a class="nav-item nav-link href="{{ path('app_home') }}">Bricolage</a>
+                <a class="nav-item nav-link" href="{{ path('app_home') }}">Loisirs Créatifs</a>
+                <a class="nav-item nav-link" href="{{ path('app_home') }}">À propos</a>
+            </nav>
         </div>
     </div>
 </div>

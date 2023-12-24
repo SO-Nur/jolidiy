@@ -15,7 +15,7 @@ class Media
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $file = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -32,6 +32,12 @@ class Media
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
+
+    #[ORM\ManyToOne(inversedBy: 'featuredVideo')]
+    private ?Article $articleVideo = null;
+
+    #[ORM\ManyToOne(inversedBy: 'contentImage')]
+    private ?Article $articleContentImage = null;
 
     public function getId(): ?int
     {
@@ -113,5 +119,29 @@ class Media
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    public function getArticleVideo(): ?Article
+    {
+        return $this->articleVideo;
+    }
+
+    public function setArticleVideo(?Article $articleVideo): static
+    {
+        $this->articleVideo = $articleVideo;
+
+        return $this;
+    }
+
+    public function getArticleContentImage(): ?Article
+    {
+        return $this->articleContentImage;
+    }
+
+    public function setArticleContentImage(?Article $articleContentImage): static
+    {
+        $this->articleContentImage = $articleContentImage;
+
+        return $this;
     }
 }

@@ -3,23 +3,37 @@
 <article class="mb-5">
     <div class="row">
         <div class="col-md-{{ leftCol ?? 5 }}">
-        {#    {% if article.featuredImage %}
-                <a href="{{ article_show }}">
-                    <img src="/uploads/{{ article.featuredImage.filename }}"
+           {% if article.featuredImage %}
+                <a href="{{ articles }}">
+                    <img src="/uploads/{{ article.featuredImage.file }}"
                          alt="{{ article.featuredImage.altText }}"
-                         loading="lazy" width="350" height="205">
+                         class="rounded img-fluid"
+                         loading="lazy" width="350" height="250">
                 </a>
-            {% endif %} #}
+            {% endif %}
         </div>
         <div class="col-md-{{ rightCol ?? 7 }}">
             <h2>
                 <a class="text-decoration-none" href="{{ articles }}">{{ article.title }}</a>
             </h2>
             <p>
-                {{ article.createdAt|date('d M Y') }}
+                <small>
+                    {{ article.createdAt|date('d M Y') }} par
+                </small>
+                <small class="text-secondary">
+                    {{ article.user.firstname }}
+                </small>
             </p>
-            {{  article.content|striptags|slice(0, 130 ) ~ '...' }}
-        </div>
 
+            {{  article.content|striptags|slice(0, 130 ) ~ '...' }}
+            <div class="my-4">
+                <a href="{{ articles }}" class="text-decoration-none">
+                    Lire la suite
+                </a>
+            </div>
+        </div>
     </div>
+
+    <hr>
+
 </article>
